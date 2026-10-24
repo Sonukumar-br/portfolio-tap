@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sonu Kumar — Java Full Stack Developer</title>
+
+    <link rel="icon"
+        href="https://mir-s3-cdn-cf.behance.net/project_modules/max_632_webp/945b0225337909.563440870421b.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Official Devicon icons -->
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
+    <style>
+        /* =====================================================
+           DESIGN TOKENS
+        ===================================================== */
+        :root {
+            /* Colors */
+            --color-carbon: #000000;
+            --color-paper-white: #ffffff;
+            --color-sky-wash: #dceeff;
+            --color-concrete-gray: #cccccc;
+            --color-soft-mist: #e9e9e9;
+            --color-electric-blue: #4da2ff;
+            --color-mint-pop: #55db9c;
+            --color-lavender: #e9ccff;
+            --color-ember: #fb4903;
+            --color-sunburst: #ffd731;
+            --color-voltage-violet: #5c4ade;
+
+            /* Typography */
+            --font-lateral: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-aeonik-pro: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+            --transition: 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+            --radius-card: 20px;
+            --radius-btn: 9999px;
+            --max-width: 1240px;
+        }
+
+        /* =====================================================
+           RESET & GLOBALS
+        ===================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-aeonik-pro);
+            background: var(--color-paper-white);
+            color: var(--color-carbon);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--color-soft-mist);
+            width: 100%;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+        }
+
+        .logo {
+            font-family: var(--font-lateral);
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-electric-blue);
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555555;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-carbon);
+        }
+
+        .btn-resume {
+            background: var(--color-carbon);
+            color: var(--color-paper-white);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: var(--radius-btn);
+            transition: var(--transition);
+        }
+
+        .btn-resume:hover {
+            background: var(--color-voltage-violet);
+            transform: translateY(-1px);
+        }
+
+        /* =====================================================
+           HERO SECTION (DARK CARBON CANVAS + PORTRAIT BG)
+        ===================================================== */
+        .hero {
+            position: relative;
+            background: var(--color-carbon);
+            color: var(--color-paper-white);
+            min-height: calc(100vh - 72px);
+            display: flex;
+            align-items: center;
+            padding: 80px 6%;
+            overflow: hidden;
+        }
+
+        /* Portrait as subtle atmospheric background */
+        /* =====================================================
+   HERO PHOTO & OVERLAY UPDATES
+===================================================== */
+.hero-bg-photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    background-image: url("./WhatsApp Image 2026-09-28 at 7.41.55 PM.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 20%;
+    
+    /* 1. Color aur clarity improve karein */
+    filter: contrast(1.05) brightness(0.95); /* Grayscale hata diya taaki real colors aayein */
+    opacity: 0.85; /* 0.35 se badha kar 0.85 kiya taaki photo saaf dikhe */
+    
+    z-index: 1;
+    pointer-events: none;
+    
+    /* 2. Left side se smooth fade taaki text ke sath blend ho sake */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 15%, black 45%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.4) 15%, black 45%);
+}
+
+.hero-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    /* Overlay ko thoda light kiya taaki photo hide na ho aur left ka text readable rahe */
+    background: linear-gradient(
+        90deg, 
+        rgba(0, 0, 0, 0.95) 0%, 
+        rgba(0, 0, 0, 0.75) 40%, 
+        rgba(0, 0, 0, 0.15) 80%, 
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+       
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 780px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: var(--color-mint-pop);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: var(--radius-btn);
+            margin-bottom: 24px;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-badge-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--color-mint-pop);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--color-mint-pop);
+        }
+
+        .hero h1 {
+            font-family: var(--font-lateral);
+            font-size: clamp(48px, 6.5vw, 84px);
+            font-weight: 800;
+            line-height: 1.04;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, var(--color-electric-blue), var(--color-lavender));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p.hero-desc {
+            font-size: 18px;
+            line-height: 1.65;
+            color: var(--color-concrete-gray);
+            max-width: 620px;
+            margin-bottom: 36px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--color-electric-blue);
+            color: var(--color-carbon);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 15px 28px;
+            border-radius: var(--radius-btn);
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-paper-white);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--color-paper-white);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 15px 28px;
+            border-radius: var(--radius-btn);
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-paper-white);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* =====================================================
+           SECTION LAYOUT & TITLES
+        ===================================================== */
+        .section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 100px 6%;
+        }
+
+        .section-tag {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--color-voltage-violet);
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-family: var(--font-lateral);
+            font-size: clamp(34px, 4vw, 52px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.2px;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 17px;
+            color: #666666;
+            max-width: 680px;
+            line-height: 1.6;
+        }
+
+        /* =====================================================
+           ABOUT SECTION (SKY WASH SURFACE)
+        ===================================================== */
+        .about-wrap {
+            background: var(--color-sky-wash);
+            width: 100%;
+        }
+
+        .about-grid {
+            margin-top: 48px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .about-card {
+            background: var(--color-paper-white);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: var(--radius-card);
+            padding: 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .about-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
+        }
+
+        .about-card h3 {
+            font-family: var(--font-lateral);
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 14px;
+        }
+
+        .about-card p {
+            font-size: 15px;
+            color: #555555;
+            line-height: 1.7;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--color-voltage-violet);
+            font-weight: 700;
+            font-size: 14px;
+            margin-top: 24px;
+            transition: var(--transition);
+        }
+
+        .card-link:hover {
+            gap: 10px;
+        }
+
+        /* =====================================================
+           SKILLS SECTION (WHITE CANVAS + PILL CARDS)
+        ===================================================== */
+        .skills-group {
+            margin-top: 44px;
+        }
+
+        .skills-group-title {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #777777;
+            margin-bottom: 18px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+            gap: 16px;
+        }
+
+        .skill-item {
+            background: var(--color-soft-mist);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: var(--transition);
+        }
+
+        .skill-item:hover {
+            background: var(--color-carbon);
+            color: var(--color-paper-white);
+            transform: translateY(-3px);
+        }
+
+        .skill-item i {
+            font-size: 28px;
+            line-height: 1;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .skill-item:hover i {
+            transform: scale(1.12);
+        }
+
+        .skill-name {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+        }
+
+        /* =====================================================
+           PROJECTS SECTION (LIGHT GRAY BAND)
+        ===================================================== */
+        .projects-wrap {
+            background: #fafafa;
+            border-top: 1px solid var(--color-soft-mist);
+            border-bottom: 1px solid var(--color-soft-mist);
+            width: 100%;
+        }
+
+        .projects-grid {
+            margin-top: 48px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--color-paper-white);
+            border-radius: var(--radius-card);
+            border: 1px solid var(--color-soft-mist);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--color-concrete-gray);
+        }
+
+        .project-img-box {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: var(--color-carbon);
+            border-bottom: 1px solid var(--color-soft-mist);
+        }
+
+        .project-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .project-img-box img {
+            transform: scale(1.05);
+        }
+
+        .project-body {
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .project-number {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--color-ember);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .project-body h3 {
+            font-family: var(--font-lateral);
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+            margin-bottom: 10px;
+        }
+
+        .project-body p {
+            font-size: 14px;
+            color: #555555;
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .project-tags {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-voltage-violet);
+            background: var(--color-lavender);
+            padding: 6px 12px;
+            border-radius: var(--radius-btn);
+            display: inline-block;
+            margin-top: auto;
+            align-self: flex-start;
+        }
+
+        .project-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--color-carbon);
+            margin-top: 18px;
+            transition: var(--transition);
+        }
+
+        .project-btn:hover {
+            color: var(--color-voltage-violet);
+            gap: 10px;
+        }
+
+        /* =====================================================
+           CONTACT SECTION
+        ===================================================== */
+        .contact-card {
+            background: var(--color-carbon);
+            color: var(--color-paper-white);
+            border-radius: 28px;
+            padding: 70px 48px;
+            text-align: center;
+            margin-top: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-card h2 {
+            font-family: var(--font-lateral);
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 16px;
+        }
+
+        .contact-card p {
+            font-size: 17px;
+            color: var(--color-concrete-gray);
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 36px;
+        }
+
+        .contact-details {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+
+        .contact-pill {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--color-paper-white);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: var(--radius-btn);
+            transition: var(--transition);
+        }
+
+        .contact-pill:hover {
+            background: var(--color-paper-white);
+            color: var(--color-carbon);
+        }
+
+        .social-row {
+            display: flex;
+            gap: 14px;
+        }
+
+        .social-icon-btn {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-icon-btn:hover {
+            background: var(--color-paper-white);
+            transform: translateY(-3px);
+        }
+
+        .social-icon-btn img {
+            width: 20px;
+            height: 20px;
+            filter: invert(1);
+            transition: var(--transition);
+        }
+
+        .social-icon-btn:hover img {
+            filter: invert(0);
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+        footer {
+            border-top: 1px solid var(--color-soft-mist);
+            padding: 32px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #777777;
+        }
+
+        footer a {
+            color: var(--color-carbon);
+            font-weight: 700;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+        @media (max-width: 960px) {
+            .projects-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-bg-photo {
+                width: 100%;
+                opacity: 0.22;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 42px;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-card {
+                padding: 48px 24px;
+            }
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <a href="#top" class="logo">
+            SONU KUMAR
+            <span class="logo-dot"></span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <a href="./Sonu_Kumar_Resume (2) new.pdf" target="_blank" class="btn-resume">
+            Resume ↗
+        </a>
+    </header>
+
+    <main>
+        <!-- HERO SECTION (DARK CARBON CANVAS + PORTRAIT BG) -->
+        <section class="hero">
+            <div class="hero-bg-photo" aria-hidden="true"></div>
+            <div class="hero-gradient-overlay" aria-hidden="true"></div>
+
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Available for Java Full Stack Roles
+                </div>
+
+                <h1>
+                    Building resilient backend systems & <span>dynamic web apps</span>.
+                </h1>
+
+                <p class="hero-desc">
+                    Hi, I'm Sonu Kumar — a Java Full Stack Developer specializing in robust Spring Boot microservices, secure RESTful APIs, and reactive React user interfaces.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn-primary">View Projects ↗</a>
+                    <a href="#contact" class="btn-secondary">Let's Connect</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT ME (SKY WASH SURFACE) -->
+        <div class="about-wrap">
+            <section class="section" id="about">
+                <span class="section-tag">01 / Overview</span>
+                <h2 class="section-title">Engineering from Data to Interface</h2>
+                <p class="section-desc">
+                    I design and implement scalable web applications, connecting rock-solid backend business logic with high-performance client experiences.
+                </p>
+
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div>
+                            <h3>Full Stack Architecture</h3>
+                            <p>
+                                Extensive experience crafting end-to-end applications using Java, Spring Boot, Hibernate JPA, Spring Security, and modern React with state management.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="about-card">
+                        <div>
+                            <h3>Open Source & Workflows</h3>
+                            <p>
+                                Active builder exploring production architectures, database schema optimization, and real-time streaming interfaces indexed on GitHub.
+                            </p>
+                        </div>
+                        <a href="https://github.com/Sonukumar-br" target="_blank" class="card-link">
+                            Explore GitHub Repositories ↗
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SKILLS SECTION -->
+        <section class="section" id="skills">
+            <span class="section-tag">02 / Competencies</span>
+            <h2 class="section-title">Technical Specifications</h2>
+            <p class="section-desc">
+                Core technologies and frameworks I use to engineer reliable, production-ready software.
+            </p>
+
+            <!-- Backend -->
+            <div class="skills-group">
+                <h3 class="skills-group-title">Backend & Enterprise Java</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <i class="devicon-java-plain colored"></i>
+                        <span class="skill-name">Java (Core & 8+)</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-spring-original colored"></i>
+                        <span class="skill-name">Spring Boot</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-spring-plain colored"></i>
+                        <span class="skill-name">Spring Security</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-hibernate-plain colored"></i>
+                        <span class="skill-name">Hibernate / JPA</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-fastapi-plain colored"></i>
+                        <span class="skill-name">RESTful APIs</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-nodejs-plain-wordmark colored"></i>
+                        <span class="skill-name">Node.js / Express</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frontend -->
+            <div class="skills-group">
+                <h3 class="skills-group-title">Frontend Systems</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <i class="devicon-react-original colored"></i>
+                        <span class="skill-name">React</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-javascript-plain colored"></i>
+                        <span class="skill-name">JavaScript (ES6+)</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-html5-plain colored"></i>
+                        <span class="skill-name">HTML5</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-css3-plain colored"></i>
+                        <span class="skill-name">CSS3</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-bootstrap-plain colored"></i>
+                        <span class="skill-name">Tailwind / Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Databases & Tools -->
+            <div class="skills-group">
+                <h3 class="skills-group-title">Databases & DevOps</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <i class="devicon-mysql-plain colored"></i>
+                        <span class="skill-name">MySQL</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-mongodb-plain colored"></i>
+                        <span class="skill-name">MongoDB</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-git-plain colored"></i>
+                        <span class="skill-name">Git</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-github-original colored"></i>
+                        <span class="skill-name">GitHub</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-postman-plain colored"></i>
+                        <span class="skill-name">Postman</span>
+                    </div>
+                    <div class="skill-item">
+                        <i class="devicon-docker-plain colored"></i>
+                        <span class="skill-name">Docker</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION (SOFT GRAY BAND + SCREENSHOTS) -->
+        <div class="projects-wrap">
+            <section class="section" id="projects">
+                <span class="section-tag">03 / Deployments</span>
+                <h2 class="section-title">Selected Projects</h2>
+                <p class="section-desc">
+                    Live full-stack applications with payment checkout, real-time messaging, and assessment analytics.
+                </p>
+
+                <div class="projects-grid">
+                    <!-- PROJECT 01 -->
+                    <article class="project-card">
+                        <div class="project-img-box">
+                            <img src="./Screenshot 2026-09-28 192801.png" alt="QuickShow movie booking platform interface">[cite: 3]
+                        </div>
+                        <div class="project-body">
+                            <span class="project-number">PROJECT 01</span>
+                            <h3>QuickShow</h3>
+                            <p>
+                                Online cinema ticket booking platform with real-time seat reservation, atomic concurrency locking, and Stripe checkout.
+                            </p>
+                            <span class="project-tags">React · Node · Mongo · Stripe</span>
+                            <a href="https://quickshow-by-sonu.vercel.app/" target="_blank" class="project-btn">
+                                View Live App ↗
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 02 -->
+                    <article class="project-card">
+                        <div class="project-img-box">
+                            <img src="./Screenshot 2026-09-28 192836.png" alt="InterviewAI platform dashboard">[cite: 2]
+                        </div>
+                        <div class="project-body">
+                            <span class="project-number">PROJECT 02</span>
+                            <h3>AI Job Preparation</h3>
+                            <p>
+                                Mock-test platform with topic-wise DSA performance analysis, gap tracking, and automated scoring metrics.
+                            </p>
+                            <span class="project-tags">Java · Spring Boot · MySQL · AI</span>
+                            <a href="https://ai-job-interview-platform-rho.vercel.app/register" target="_blank" class="project-btn">
+                                View Live App ↗
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 03 -->
+                    <article class="project-card">
+                        <div class="project-img-box">
+                            <img src="./Screenshot 2026-09-28 193028.png" alt="Chatly real time chat application login screen">[cite: 1]
+                        </div>
+                        <div class="project-body">
+                            <span class="project-number">PROJECT 03</span>
+                            <h3>Chatly</h3>
+                            <p>
+                                Low-latency peer-to-peer chat application built on WebSockets with JWT authorization and image transmission.
+                            </p>
+                            <span class="project-tags">React · Node · Express · Socket.io</span>
+                            <a href="https://realtimechatapp-fkty.onrender.com/login" target="_blank" class="project-btn">
+                                View Live App ↗
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <!-- CONTACT SECTION -->
+        <section class="section" id="contact">
+            <div class="contact-card">
+                <span class="section-tag" style="color: var(--color-mint-pop);">04 / Get In Touch</span>
+                <h2>Let's build something remarkable.</h2>
+                <p>
+                    I am actively seeking Java Full Stack Developer roles. Feel free to reach out directly for full-time opportunities or project collaborations.
+                </p>
+
+                <div class="contact-details">
+                    <a href="mailto:Sonukumar9982s@gmail.com" class="contact-pill">
+                        Sonukumar9982s@gmail.com ↗
+                    </a>
+                    <a href="tel:+916203049066" class="contact-pill">
+                        +91 6203049066
+                    </a>
+                    <span class="contact-pill">
+                        Aurangabad, Bihar, India
+                    </span>
+                </div>
+
+                <div class="social-row">
+                    <a href="https://www.linkedin.com/in/sonu-kumar-201222261" target="_blank" class="social-icon-btn" title="LinkedIn">
+                        <img src="https://cdn-icons-png.flaticon.com/128/145/145807.png" alt="LinkedIn">
+                    </a>
+                    <a href="https://www.instagram.com/_samrat_sonu_?stkn=MTB3OTBhenY1cmczZg5" target="_blank" class="social-icon-btn" title="Instagram">
+                        <img src="https://cdn-icons-png.flaticon.com/128/15713/15713420.png" alt="Instagram">
+                    </a>
+                    <a href="https://github.com/Sonukumar-br" target="_blank" class="social-icon-btn" title="GitHub">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3291/3291695.png" alt="GitHub">
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Sonu Kumar. All rights reserved.</p>
+        <a href="#top">Back to top ↑</a>
+    </footer>
+
+</body>
+</html>
